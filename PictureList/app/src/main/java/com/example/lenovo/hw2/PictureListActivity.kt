@@ -91,7 +91,6 @@ class PictureListActivity : AppCompatActivity() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = values[position]
             holder.contentView.text = item.description
-            ContextCompat.checkSelfPermission(parentActivity, "INTERNET")
             Picasso.get().load(item.preview).into(holder.imageView)
             with(holder.itemView) {
                 tag = item

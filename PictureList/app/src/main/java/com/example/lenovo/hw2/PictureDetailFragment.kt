@@ -35,7 +35,6 @@ class PictureDetailFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.picture_detail, container, false)
         item?.let {
-            ContextCompat.checkSelfPermission(this.context!!, "INTERNET")
             Picasso.get().load(it.download_link).into(rootView.picture_detail)
         }
 
