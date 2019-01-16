@@ -18,7 +18,7 @@ object PicturesContent {
 
     val ITEMS: MutableList<PictureItem> = ArrayList()
     val ITEM_MAP: MutableMap<String, PictureItem> = HashMap()
-    private val COUNT_OF_ITEMS = 15
+    private const val COUNT_OF_ITEMS = 15
 
     init {
         val downloadTask = DownloadPicturesAsyncTask(WeakReference(this))
@@ -43,7 +43,7 @@ object PicturesContent {
     private class DownloadPicturesAsyncTask(val activity: WeakReference<PicturesContent>) :
         AsyncTask<URL, Unit, JsonObject>() {
         companion object {
-            private val logTag = "ASYNC_TASK"
+            private const val logTag = "ASYNC_TASK"
         }
 
         private lateinit var jsonResponse: JsonObject
