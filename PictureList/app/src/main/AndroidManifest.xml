@@ -3,7 +3,6 @@
           package="com.example.lenovo.hw2">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE"/>
 
     <application
             android:allowBackup="true"
@@ -31,11 +30,6 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.example.lenovo.hw2.PictureListActivity"/>
         </activity>
-
-        <service
-                android:name=".Loader"
-                android:exported="false">
-        </service>
     </application>
 
 </manifest>
