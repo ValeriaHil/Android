@@ -1,14 +1,11 @@
 package com.example.lenovo.pictureList
 
 import android.app.Activity
-import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
-import android.content.ServiceConnection
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
-import android.os.IBinder
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.LinearLayoutManager
@@ -22,8 +19,6 @@ import kotlinx.android.synthetic.main.activity_picture_list.*
 import kotlinx.android.synthetic.main.picture_list_content.view.*
 import kotlinx.android.synthetic.main.picture_list.*
 import android.widget.ImageView
-import com.google.gson.JsonObject
-import com.squareup.picasso.Picasso
 
 
 /**
@@ -49,7 +44,11 @@ class PictureListActivity : AppCompatActivity() {
             twoPane = true
         }
         setupServiceReceiver()
-        PicturesContent.loadJson(this, receiver)
+        if (PicturesContent.ITEMS.size == 0) {
+            PicturesContent.loadJson(this, receiver)
+        } else {
+            setupRecyclerView(picture_list)
+        }
     }
 
     private fun setupServiceReceiver() {
@@ -129,6 +128,10 @@ class PictureListActivity : AppCompatActivity() {
                             imageView.setImageBitmap(
                                 BitmapFactory.decodeByteArray(resultValue, 0, resultValue.size)
                             )
+                            val filename = resultData.getString("FILENAME")
+                            parentActivity.openFileOutput(filename, Context.MODE_PRIVATE).use {
+                                it?.write(resultValue)
+                            }
                         }
                     }
                 })
@@ -136,7 +139,9 @@ class PictureListActivity : AppCompatActivity() {
 
             fun bind(item: PicturesContent.PictureItem) {
                 contentView.text = item.description
-                Loader.load(parentActivity, item.preview, receiver)
+                if (!Finder.setImageIntoView(parentActivity, item.preview, imageView)) {
+                    Loader.load(parentActivity, item.preview, receiver)
+                }
             }
 
             val contentView: TextView = view.content

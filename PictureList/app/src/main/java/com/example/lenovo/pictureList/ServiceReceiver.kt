@@ -19,7 +19,7 @@ class ServiceReceiver// Constructor takes a handler
     }
 
     // Delegate method which passes the result to the receiver if the receiver has been assigned
-     override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
+    override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
         receiver?.onReceiveResult(resultCode, resultData)
     }
 }

@@ -12,11 +12,12 @@ import java.net.URL
 
 class Loader : IntentService("Loader") {
 
-    override fun onHandleIntent(intent: Intent?) {
-        val url = intent?.getStringExtra("EXTRA_URL")
-        val rec = intent?.getParcelableExtra("RECEIVER") as ResultReceiver
+    override fun onHandleIntent(intent: Intent) {
+        val url = intent.getStringExtra("EXTRA_URL")
+        val rec = intent.getParcelableExtra("RECEIVER") as ResultReceiver
         val bundle = Bundle()
         bundle.putByteArray("RESULT_VALUE", loadByteArray(url))
+        bundle.putString("FILENAME", "file" + url.hashCode().toString())
         rec.send(Activity.RESULT_OK, bundle)
     }
 
@@ -54,6 +55,7 @@ class Loader : IntentService("Loader") {
             }
             context.startService(intent)
         }
+
         private const val logTag = "Loader"
     }
 
