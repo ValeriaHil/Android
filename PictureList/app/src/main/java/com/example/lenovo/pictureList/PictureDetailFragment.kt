@@ -1,4 +1,4 @@
-package com.example.lenovo.hw2
+package com.example.lenovo.pictureList
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
