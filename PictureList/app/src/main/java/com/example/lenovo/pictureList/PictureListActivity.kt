@@ -1,4 +1,4 @@
-package com.example.lenovo.hw2
+package com.example.lenovo.pictureList
 
 import android.content.Intent
 import android.os.Bundle
