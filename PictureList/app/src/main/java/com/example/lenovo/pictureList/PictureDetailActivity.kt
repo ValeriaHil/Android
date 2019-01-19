@@ -1,4 +1,4 @@
-package com.example.lenovo.hw2
+package com.example.lenovo.pictureList
 
 import android.content.Intent
 import android.os.Bundle
@@ -25,24 +25,24 @@ class PictureDetailActivity : AppCompatActivity() {
             val fragment = PictureDetailFragment().apply {
                 arguments = Bundle().apply {
                     putString(
-                        PictureDetailFragment.ARG_ITEM_ID,
-                        intent.getStringExtra(PictureDetailFragment.ARG_ITEM_ID)
+                            PictureDetailFragment.ARG_ITEM_ID,
+                            intent.getStringExtra(PictureDetailFragment.ARG_ITEM_ID)
                     )
                 }
             }
 
             supportFragmentManager.beginTransaction()
-                .add(R.id.picture_detail_container, fragment)
-                .commit()
+                    .add(R.id.picture_detail_container, fragment)
+                    .commit()
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =
-        when (item.itemId) {
-            android.R.id.home -> {
-                navigateUpTo(Intent(this, PictureListActivity::class.java))
-                true
+            when (item.itemId) {
+                android.R.id.home -> {
+                    navigateUpTo(Intent(this, PictureListActivity::class.java))
+                    true
+                }
+                else -> super.onOptionsItemSelected(item)
             }
-            else -> super.onOptionsItemSelected(item)
-        }
 }
