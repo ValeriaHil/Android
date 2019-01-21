@@ -1,17 +1,12 @@
 package com.example.lenovo.pictureList.pictures
 
 import android.content.Context
-import android.os.AsyncTask
-import android.util.Log
 import com.example.lenovo.pictureList.Loader
-import com.example.lenovo.pictureList.PictureListActivity
 import com.example.lenovo.pictureList.ServiceReceiver
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import java.lang.StringBuilder
-import java.lang.ref.WeakReference
-import java.net.HttpURLConnection
-import java.net.URL
+import com.google.gson.stream.JsonReader
+import java.io.InputStreamReader
 import java.util.*
 import kotlin.math.min
 
@@ -31,12 +26,8 @@ object PicturesContent {
 
     fun parse(data: ByteArray?) {
         val iS = data?.inputStream()
-        val scanner = Scanner(iS)
-        var dataString = StringBuilder()
-        while (scanner.hasNext()) {
-            dataString.append(scanner.nextLine())
-        }
-        val jsn = JsonParser().parse(dataString.toString()) as JsonObject
+        val jsn = JsonParser().parse(JsonReader(InputStreamReader(iS))) as JsonObject
+
         val array = jsn.getAsJsonArray("results")
         for (i in 0..min(array.size(), COUNT_OF_ITEMS - 1)) {
             val description = array[i].asJsonObject.get("description").asString

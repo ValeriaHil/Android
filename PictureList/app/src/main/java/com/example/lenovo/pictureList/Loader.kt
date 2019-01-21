@@ -30,18 +30,7 @@ class Loader : IntentService("Loader") {
             val code = (this as? HttpURLConnection)?.responseCode
             Log.d(logTag, "Response code: $code")
             val buffer = ByteArrayOutputStream()
-            getInputStream().use { i ->
-                val data = ByteArray(16384)
-                var cntRead: Int
-                while (true) {
-                    cntRead = i.read(data, 0, data.size)
-                    if (cntRead != -1) {
-                        buffer.write(data, 0, cntRead)
-                    } else {
-                        break
-                    }
-                }
-            }
+            getInputStream().copyTo(buffer)
             buffer.toByteArray()
         }
     }
